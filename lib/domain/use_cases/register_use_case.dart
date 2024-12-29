@@ -7,13 +7,13 @@ import '../repositories/auth_repository_contract/auth_repository_contract.dart';
 
 @injectable
 class RegisterUseCase {
-  AuthRepositoryContract registerRepository;
+  AuthRepositoryContract authRepository;
 
-  RegisterUseCase({required this.registerRepository});
+  RegisterUseCase({required this.authRepository});
 
   Future<Either<Failures, RegisterResponseEntity>> invoke(String name,
       String email, String password, String confirmPassword, String phone) {
-    return registerRepository.register(
+    return authRepository.register(
         name, email, password, confirmPassword, phone);
   }
 }

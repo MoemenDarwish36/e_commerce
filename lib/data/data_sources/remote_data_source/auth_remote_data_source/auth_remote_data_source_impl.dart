@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:e_commerce_app/core/resources/constant_manager.dart';
 import 'package:e_commerce_app/data/api_manager/api_manager.dart';
 import 'package:e_commerce_app/data/data_sources/remote_data_source/auth_remote_data_source/auth_remote_data_source.dart';
+import 'package:e_commerce_app/data/model/LoginResponseDto.dart';
 import 'package:e_commerce_app/data/model/RegisterResponseDto.dart';
 import 'package:e_commerce_app/domain/failures/failures.dart';
 import 'package:injectable/injectable.dart';
@@ -44,6 +45,39 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         return Left(NetworkFailures(errorMessage: AppConstants.networkError));
       }
     } catch (e) {
+      return Left(Failures(errorMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failures, LoginResponseDto>> login(
+      String email, String password) async {
+    try {
+      var checkResult = await Connectivity().checkConnectivity();
+      if (checkResult.contains(ConnectivityResult.wifi) ||
+          checkResult.contains(ConnectivityResult.mobile)) {
+        print("object11111111111111111111111");
+        var response = await apiManager.postData(
+          AppConstants.apiLogin,
+          body: {
+            "email": email,
+            "password": password,
+          },
+        );
+        var loginResponse = LoginResponseDto.fromJson(response.data);
+        if (response.statusCode! >= 200 && response.statusCode! < 300) {
+          print("object22222222222222222222");
+          return Right(loginResponse);
+        } else {
+          print("object333333333333333333333");
+          return Left(ServerFailures(errorMessage: loginResponse.message!));
+        }
+      } else {
+        print("object444444444444444444");
+        return Left(NetworkFailures(errorMessage: AppConstants.networkError));
+      }
+    } catch (e) {
+      print("object5555555555555555555555555");
       return Left(Failures(errorMessage: e.toString()));
     }
   }

@@ -1,6 +1,6 @@
 import 'package:e_commerce_app/domain/entities/RegisterResponseEntity.dart';
 
-import 'UserDto.dart';
+import 'RegisterUserDto.dart';
 
 class RegisterResponseDto extends RegisterResponseEntity {
   RegisterResponseDto({
@@ -13,17 +13,8 @@ class RegisterResponseDto extends RegisterResponseEntity {
   RegisterResponseDto.fromJson(dynamic json) {
     message = json['message'];
     statusMsg = json['statusMsg'];
-    user = json['user'] != null ? UserDto.fromJson(json['user']) : null;
+    user = json['user'] != null ? RegisterUserDto.fromJson(json['user']) : null;
     token = json['token'];
   }
 
-// Map<String, dynamic> toJson() {
-//   final map = <String, dynamic>{};
-//   map['message'] = message;
-//   if (user != null) {
-//     map['user'] = user?.toJson();
-//   }
-//   map['token'] = token;
-//   return map;
-// }
 }

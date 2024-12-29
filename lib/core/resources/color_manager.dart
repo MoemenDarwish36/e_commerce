@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 abstract class ColorManager {
   static Color primary = const Color(0xFF004182);
-  static Color appBarTitleColor = const Color(0xFF06004F);
   static Color primaryDark = const Color(0xFF06004F);
 
   static Color darkGrey = const Color(0xff525252);
@@ -13,8 +12,7 @@ abstract class ColorManager {
   static Color transparent = Colors.transparent;
 
   static const Color starRateColor = Color(0XFFFDD835);
-  static const Color textColor = Color(0xff06004F);
-  static Color darkBlue = const Color(0xff06004F);
+
   static Color yellow = const Color(0xFFFDD835);
 
   // new colors

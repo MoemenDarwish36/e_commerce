@@ -20,7 +20,10 @@ import '../data/repositories/auth_repositories_impl/auth_repositories_impl.dart'
     as _i13;
 import '../domain/repositories/auth_repository_contract/auth_repository_contract.dart'
     as _i1033;
+import '../domain/use_cases/login_use_case.dart' as _i826;
 import '../domain/use_cases/register_use_case.dart' as _i772;
+import '../features/auth_presentation_screen/login/cubit/login_cubit.dart'
+    as _i941;
 import '../features/auth_presentation_screen/register/cubit/register_cubit.dart'
     as _i825;
 
@@ -41,7 +44,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1033.AuthRepositoryContract>(() => _i13.AuthRepositoriesImpl(
         remoteDataSource: gh<_i1036.AuthRemoteDataSource>()));
     gh.factory<_i772.RegisterUseCase>(() => _i772.RegisterUseCase(
-        registerRepository: gh<_i1033.AuthRepositoryContract>()));
+        authRepository: gh<_i1033.AuthRepositoryContract>()));
+    gh.factory<_i826.LoginUseCase>(() => _i826.LoginUseCase(
+        authRepository: gh<_i1033.AuthRepositoryContract>()));
+    gh.factory<_i941.LoginScreenCubit>(
+        () => _i941.LoginScreenCubit(loginUseCase: gh<_i826.LoginUseCase>()));
     gh.factory<_i825.RegisterScreenCubit>(() => _i825.RegisterScreenCubit(
         registerUseCase: gh<_i772.RegisterUseCase>()));
     return this;

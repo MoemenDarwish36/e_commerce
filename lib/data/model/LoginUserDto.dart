@@ -1,13 +1,13 @@
-import 'package:e_commerce_app/domain/entities/RegisterResponseEntity.dart';
+import 'package:e_commerce_app/domain/entities/LoginResponseEntity.dart';
 
-class UserDto extends UserEntity {
-  UserDto({
+class LoginUserDto extends LoginUserEntity {
+  LoginUserDto({
     super.name,
     super.email,
     this.role,
   });
 
-  UserDto.fromJson(dynamic json) {
+  LoginUserDto.fromJson(dynamic json) {
     name = json['name'];
     email = json['email'];
     role = json['role'];

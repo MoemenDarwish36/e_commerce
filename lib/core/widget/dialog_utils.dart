@@ -10,11 +10,11 @@ class DialogUtils {
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: ColorManager.primary,
+            backgroundColor: ColorManager.white,
             content: Row(
               children: [
                 CircularProgressIndicator(
-                  color: ColorManager.white,
+                  color: ColorManager.primary,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -23,7 +23,7 @@ class DialogUtils {
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge
-                        ?.copyWith(color: ColorManager.white),
+                        ?.copyWith(color: ColorManager.primary),
                   ),
                 )
               ],
@@ -49,9 +49,6 @@ class DialogUtils {
       actions.add(TextButton(
           onPressed: () {
             Navigator.pop(context);
-            // if(posAction != null){
-            //   posAction.call();
-            // }
             posAction?.call();
           },
           child: Text(
@@ -59,7 +56,7 @@ class DialogUtils {
             style: Theme.of(context)
                 .textTheme
                 .titleLarge
-                ?.copyWith(color: ColorManager.white),
+                ?.copyWith(color: ColorManager.primary),
           )));
     }
     if (negActionName != null) {
@@ -73,25 +70,25 @@ class DialogUtils {
             style: Theme.of(context)
                 .textTheme
                 .titleLarge
-                ?.copyWith(color: ColorManager.white),
+                ?.copyWith(color: ColorManager.primary),
           )));
     }
     showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: ColorManager.primary,
+            backgroundColor: ColorManager.white,
             content: Text(message,
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge
-                    ?.copyWith(color: ColorManager.white)),
+                    ?.copyWith(color: ColorManager.primary)),
             title: Text(
               title,
               style: Theme.of(context)
                   .textTheme
                   .titleLarge
-                  ?.copyWith(color: ColorManager.white),
+                  ?.copyWith(color: ColorManager.primary),
             ),
             actions: actions,
           );

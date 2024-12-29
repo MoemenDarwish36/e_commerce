@@ -71,7 +71,7 @@ class _BuildTextFieldState extends State<BuildTextField> {
                 child: Text(
                   widget.label!,
                   style: widget.labelTextStyle ??
-                      getMediumStyle(color: ColorManager.white)
+                      getMediumStyle(color: ColorManager.black)
                           .copyWith(fontSize: FontSize.s18.sp),
                 ),
               )

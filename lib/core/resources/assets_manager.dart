@@ -5,8 +5,10 @@ const String svgPath = "assets/svg_images";
 
 abstract class ImageAssets {
   static const String routeLogo = "$imagePath/splash_logo.png";
+  static const String googleLogo = "$imagePath/google.png";
   static const String splashScreen = "$imagePath/splash_screen.png";
   static const String categoryCardImage = "$imagePath/category_card_image.png";
+  static const String authScreen = "$imagePath/auth.png";
 
   static const String subcategoryCardImage =
       "$imagePath/sub_category_card_image.png";
