@@ -56,7 +56,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       var checkResult = await Connectivity().checkConnectivity();
       if (checkResult.contains(ConnectivityResult.wifi) ||
           checkResult.contains(ConnectivityResult.mobile)) {
-        print("object11111111111111111111111");
         var response = await apiManager.postData(
           AppConstants.apiLogin,
           body: {
@@ -66,18 +65,14 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         );
         var loginResponse = LoginResponseDto.fromJson(response.data);
         if (response.statusCode! >= 200 && response.statusCode! < 300) {
-          print("object22222222222222222222");
           return Right(loginResponse);
         } else {
-          print("object333333333333333333333");
           return Left(ServerFailures(errorMessage: loginResponse.message!));
         }
       } else {
-        print("object444444444444444444");
         return Left(NetworkFailures(errorMessage: AppConstants.networkError));
       }
     } catch (e) {
-      print("object5555555555555555555555555");
       return Left(Failures(errorMessage: e.toString()));
     }
   }

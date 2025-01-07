@@ -14,6 +14,7 @@ import '../../../core/resources/style_manager.dart';
 import '../../../core/resources/values_manager.dart';
 import '../../../core/routes_manger/routes.dart';
 import '../../../core/widget/dialog_utils.dart';
+import '../../../core/widget/validators.dart';
 import 'cubit/login_state.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -76,7 +77,7 @@ class LoginScreen extends StatelessWidget {
                   backgroundColor: ColorManager.white,
                   hint: AppConstants.hintLogin,
                   textInputType: TextInputType.emailAddress,
-                  // validation: AppValidators.validateEmail,
+                  validation: AppValidators.validateEmail,
                   controller: loginScreenCubit.emailController,
                 ),
                 SizedBox(
@@ -86,7 +87,7 @@ class LoginScreen extends StatelessWidget {
                   prefixIcon: const Icon(Icons.password),
                   hint: AppConstants.hintPassword,
                   backgroundColor: ColorManager.white,
-                  // validation: AppValidators.validatePassword,
+                  validation: AppValidators.validatePassword,
                   controller: loginScreenCubit.passwordController,
                   isObscured: true,
                   textInputType: TextInputType.text,
@@ -119,6 +120,7 @@ class LoginScreen extends StatelessWidget {
                         color: ColorManager.white, fontSize: AppSize.s18),
                     onTap: () {
                       loginScreenCubit.login();
+                      Navigator.pushNamed(context, Routes.mainRoute);
                     },
                   ),
                 ),

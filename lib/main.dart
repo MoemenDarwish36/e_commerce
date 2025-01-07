@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/core/routes_manger/routes.dart';
 import 'package:e_commerce_app/core/routes_manger/routes_generator.dart';
+import 'package:e_commerce_app/features/main_layout/home_tab/cubit/home_tab_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,7 +12,9 @@ void main() {
   Bloc.observer = MyBlocObserver();
   configureDependencies();
 
-  runApp(const MyApp());
+  runApp(MultiBlocProvider(
+      providers: [BlocProvider(create: (context) => getIt<HomeTabCubit>())],
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -26,7 +29,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
         home: child,
-        initialRoute: Routes.splashScreenRoute,
+        initialRoute: Routes.mainRoute,
         onGenerateRoute: RouteGenerator.getRoute,
       ),
     );

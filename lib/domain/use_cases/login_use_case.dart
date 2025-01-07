@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 
 import '../entities/LoginResponseEntity.dart';
 import '../failures/failures.dart';
-import '../repositories/auth_repository_contract/auth_repository_contract.dart';
+import '../repositories/auth_repository_contract.dart';
 
 @injectable
 class LoginUseCase {

@@ -13,6 +13,7 @@ import '../../../core/resources/style_manager.dart';
 import '../../../core/resources/values_manager.dart';
 import '../../../core/widget/custom_elevated_button.dart';
 import '../../../core/widget/main_text_field.dart';
+import '../../../core/widget/validators.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
@@ -64,7 +65,7 @@ class RegisterScreen extends StatelessWidget {
                     backgroundColor: ColorManager.white,
                     hint: AppConstants.hintRegisterName,
                     textInputType: TextInputType.name,
-                    // validation: AppValidators.validateFullName,
+                    validation: AppValidators.validateFullName,
                     controller: registerScreenCubit.nameController,
                   ),
                   SizedBox(
@@ -74,7 +75,7 @@ class RegisterScreen extends StatelessWidget {
                       prefixIcon: const Icon(Icons.numbers),
                       hint: AppConstants.hintRegisterMobil,
                       backgroundColor: ColorManager.white,
-                      // validation: AppValidators.validatePhoneNumber,
+                      validation: AppValidators.validatePhoneNumber,
                       textInputType: TextInputType.phone,
                       controller: registerScreenCubit.phoneController),
                   SizedBox(
@@ -84,7 +85,7 @@ class RegisterScreen extends StatelessWidget {
                       prefixIcon: const Icon(Icons.email),
                       hint: AppConstants.hintRegisterEmail,
                       backgroundColor: ColorManager.white,
-                      // validation: AppValidators.validateEmail,
+                      validation: AppValidators.validateEmail,
                       textInputType: TextInputType.emailAddress,
                       controller: registerScreenCubit.emailController),
                   SizedBox(
@@ -94,7 +95,7 @@ class RegisterScreen extends StatelessWidget {
                     prefixIcon: const Icon(Icons.password),
                     hint: AppConstants.hintRegisterPassword,
                     backgroundColor: ColorManager.white,
-                    // validation: AppValidators.validatePassword,
+                    validation: AppValidators.validatePassword,
                     controller: registerScreenCubit.passwordController,
                     isObscured: true,
                     textInputType: TextInputType.text,
@@ -106,8 +107,8 @@ class RegisterScreen extends StatelessWidget {
                     prefixIcon: const Icon(Icons.password),
                     hint: AppConstants.hintRegisterConfirmPassword,
                     backgroundColor: ColorManager.white,
-                    // validation: (val) => AppValidators.validateConfirmPassword(
-                    //     val, registerScreenCubit.passwordController.text),
+                    validation: (val) => AppValidators.validateConfirmPassword(
+                        val, registerScreenCubit.passwordController.text),
                     controller: registerScreenCubit.confirmPasswordController,
                     isObscured: true,
                     textInputType: TextInputType.text,
