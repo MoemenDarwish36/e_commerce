@@ -6,6 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/resources/color_manager.dart';
 
 class AnnouncementWidget extends StatelessWidget {
+  const AnnouncementWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ImageSlideshow(

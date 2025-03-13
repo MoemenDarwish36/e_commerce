@@ -4,6 +4,7 @@ import 'package:e_commerce_app/core/resources/assets_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/routes_manger/routes.dart';
+import '../../core/widget/shared_preference_utils.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -11,7 +12,12 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Timer(const Duration(seconds: 2), () {
-      Navigator.pushReplacementNamed(context, Routes.signInRoute);
+      var user = SharedPreferenceUtils.getData(key: 'token');
+      if (user == null) {
+        Navigator.pushReplacementNamed(context, Routes.signInRoute);
+      } else {
+        Navigator.pushReplacementNamed(context, Routes.mainRoute);
+      }
     });
     return Scaffold(
         body: Image.asset(

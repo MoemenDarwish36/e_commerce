@@ -1,7 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce_app/data/data_sources/remote_data_source/home_screen_remote_data_source/home_screen_remote_data_source.dart';
+import 'package:e_commerce_app/domain/entities/AddToCartResponseEntity.dart';
 import 'package:e_commerce_app/domain/entities/BrandResponseEntity.dart';
 import 'package:e_commerce_app/domain/entities/CategoryResponseEntity.dart';
+import 'package:e_commerce_app/domain/entities/ProductResponseEntity.dart';
 import 'package:e_commerce_app/domain/failures/failures.dart';
 import 'package:injectable/injectable.dart';
 
@@ -23,5 +25,18 @@ class HomeScreenRepositoryImpl implements HomeScreenRepositoryContract {
   Future<Either<Failures, BrandResponseEntity>> getAllBrands() async {
     var either = await remoteDataSource.getAllBrands();
     return either.fold((ifLeft) => Left(ifLeft), (ifRight) => Right(ifRight));
+  }
+
+  @override
+  Future<Either<Failures, ProductResponseEntity>> getAllProducts() async {
+    var either = await remoteDataSource.getAllProducts();
+    return either.fold((ifLeft) => Left(ifLeft), (ifRight) => Right(ifRight));
+  }
+
+  @override
+  Future<Either<Failures, AddToCartResponseEntity>> addToCart(
+      String productId) async {
+    var either = await remoteDataSource.addToCart(productId);
+    return either.fold((error) => Left(error), (response) => Right(response));
   }
 }

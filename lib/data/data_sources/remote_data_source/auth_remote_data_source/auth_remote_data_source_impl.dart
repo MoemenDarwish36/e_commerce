@@ -3,10 +3,11 @@ import 'package:dartz/dartz.dart';
 import 'package:e_commerce_app/core/resources/constant_manager.dart';
 import 'package:e_commerce_app/data/api_manager/api_manager.dart';
 import 'package:e_commerce_app/data/data_sources/remote_data_source/auth_remote_data_source/auth_remote_data_source.dart';
-import 'package:e_commerce_app/data/model/LoginResponseDto.dart';
 import 'package:e_commerce_app/data/model/RegisterResponseDto.dart';
 import 'package:e_commerce_app/domain/failures/failures.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../../model/LoginResponseDto.dart';
 
 @Injectable(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {

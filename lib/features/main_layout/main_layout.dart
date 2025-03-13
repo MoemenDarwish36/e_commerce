@@ -1,32 +1,33 @@
 import 'package:e_commerce_app/features/main_layout/cubit/home_screen-cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/resources/assets_manager.dart';
 import '../../core/resources/color_manager.dart';
-import '../../core/widget/home_screen_app_bar.dart';
 import 'cubit/home_screen_states.dart';
 
 class MainLayout extends StatelessWidget {
-  HomeScreenCubit homeScreenCubit = HomeScreenCubit();
+  const MainLayout({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeScreenCubit, HomeScreenStates>(
-        bloc: homeScreenCubit,
+        bloc: HomeScreenCubit.get(context),
         builder: (context, state) {
           return Scaffold(
-            appBar: const HomeScreenAppBar(),
             extendBody: false,
-            body: homeScreenCubit.tabs[homeScreenCubit.currentIndex],
+            body: HomeScreenCubit.get(context)
+                .tabs[HomeScreenCubit.get(context).currentIndex],
             bottomNavigationBar: ClipRRect(
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(15), topRight: Radius.circular(15)),
               child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1,
+                height: 90.h,
                 child: BottomNavigationBar(
-                  currentIndex: homeScreenCubit.currentIndex,
-                  onTap: (value) => homeScreenCubit.changeSelectedIndex(value),
+                  currentIndex: HomeScreenCubit.get(context).currentIndex,
+                  onTap: (value) =>
+                      HomeScreenCubit.get(context).changeSelectedIndex(value),
                   backgroundColor: ColorManager.primary,
                   type: BottomNavigationBarType.fixed,
                   selectedItemColor: ColorManager.primary,
@@ -55,8 +56,8 @@ class CustomBottomNavBarItem extends BottomNavigationBarItem {
       : super(
           label: title,
           icon: ImageIcon(
-            AssetImage(iconPath), // Inactive icon image
-            color: ColorManager.white, // Inactive icon color
+            AssetImage(iconPath),
+            color: ColorManager.white,
           ),
           activeIcon: CircleAvatar(
             backgroundColor: ColorManager.white,

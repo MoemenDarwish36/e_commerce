@@ -21,6 +21,8 @@ class RegisterScreenCubit extends Cubit<RegisterState> {
   RegisterScreenCubit({required this.registerUseCase})
       : super(RegisterInitialState());
 
+  static RegisterScreenCubit get(context) => BlocProvider.of(context);
+
   void register() async {
     emit(RegisterLoadingState());
     var either = await registerUseCase.invoke(

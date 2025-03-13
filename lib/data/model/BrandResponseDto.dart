@@ -18,7 +18,7 @@ class BrandResponseDto extends BrandResponseEntity {
     message = json['message'];
     results = json['results'];
     metadata = json['metadata'] != null
-        ? MetadataDto.fromJson(json['metadata'])
+        ? MetadataBrandDto.fromJson(json['metadata'])
         : null;
     if (json['data'] != null) {
       data = [];
@@ -28,28 +28,31 @@ class BrandResponseDto extends BrandResponseEntity {
     }
   }
 
-  @override
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['results'] = results;
     if (metadata != null) {
-      map['metadata'] = metadata?.toJson();
+      map['metadata'] = (metadata as MetadataBrandDto).toJson();
     }
     if (data != null) {
-      map['data'] = data?.map((v) => v.toJson()).toList();
+      map['data'] = data?.map((v) => (v as BrandDto).toJson()).toList();
     }
+
     return map;
   }
 }
 
 class BrandDto extends BrandEntity {
+  String? createdAt;
+  String? updatedAt;
+
   BrandDto({
     super.id,
     super.name,
     super.slug,
     super.image,
-    super.createdAt,
-    super.updatedAt,
+    this.createdAt,
+    this.updatedAt,
   });
 
   BrandDto.fromJson(dynamic json) {
@@ -61,7 +64,6 @@ class BrandDto extends BrandEntity {
     updatedAt = json['updatedAt'];
   }
 
-  @override
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['_id'] = id;
@@ -74,22 +76,21 @@ class BrandDto extends BrandEntity {
   }
 }
 
-class MetadataDto extends MetadataEntity {
-  MetadataDto({
+class MetadataBrandDto extends MetadataBrandEntity {
+  MetadataBrandDto({
     super.currentPage,
     super.numberOfPages,
     super.limit,
     super.nextPage,
   });
 
-  MetadataDto.fromJson(dynamic json) {
+  MetadataBrandDto.fromJson(dynamic json) {
     currentPage = json['currentPage'];
     numberOfPages = json['numberOfPages'];
     limit = json['limit'];
     nextPage = json['nextPage'];
   }
 
-  @override
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['currentPage'] = currentPage;

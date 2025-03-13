@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class AppConstants {
   static const String delete = "Delete";
   static const String searchHint = "what do you search for?";
-  static const String addToCart = "Add to Cart";
   static const String unDefinedRoute = 'No Route Found';
   static const String welcomeMessage = 'Welcome Back';
   static const String loginMessage = ' Sign In ';
@@ -23,9 +22,14 @@ class AppConstants {
   static const String apiRegister = "/api/v1/auth/signup";
   static const String apiLogin = "/api/v1/auth/signin";
   static const String getAllCategories = "/api/v1/categories";
+  static const String addToCart = "/api/v1/cart";
   static const String getAllBrands = "/api/v1/brands";
+  static const String getAllProduct = "/api/v1/products";
+  static const String updateUser = "/api/v1/users/updateMe/";
   static const String networkError = " No Internet Connection";
   static const String registerSuccess = 'Register Successfully';
+  static const String updateSuccess = 'Update Successfully';
+  static const String update = 'Update ';
 
   static List<Map<String, dynamic>> favoriteProducts = [
     {

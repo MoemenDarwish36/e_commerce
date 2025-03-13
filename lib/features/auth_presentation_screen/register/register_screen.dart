@@ -1,6 +1,5 @@
 import 'package:e_commerce_app/core/resources/constant_manager.dart';
 import 'package:e_commerce_app/core/widget/dialog_utils.dart';
-import 'package:e_commerce_app/di/di.dart';
 import 'package:e_commerce_app/features/auth_presentation_screen/register/cubit/register_cubit.dart';
 import 'package:e_commerce_app/features/auth_presentation_screen/register/cubit/register_state.dart';
 import 'package:flutter/material.dart';
@@ -11,19 +10,19 @@ import '../../../core/resources/assets_manager.dart';
 import '../../../core/resources/color_manager.dart';
 import '../../../core/resources/style_manager.dart';
 import '../../../core/resources/values_manager.dart';
+import '../../../core/routes_manger/routes.dart';
 import '../../../core/widget/custom_elevated_button.dart';
 import '../../../core/widget/main_text_field.dart';
+import '../../../core/widget/shared_preference_utils.dart';
 import '../../../core/widget/validators.dart';
 
 class RegisterScreen extends StatelessWidget {
-  RegisterScreen({super.key});
-
-  RegisterScreenCubit registerScreenCubit = getIt<RegisterScreenCubit>();
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<RegisterScreenCubit, RegisterState>(
-      bloc: registerScreenCubit,
+      bloc: RegisterScreenCubit.get(context),
       listener: (context, state) {
         if (state is RegisterLoadingState) {
           DialogUtils.showLoading(context: context, message: 'Loading...');
@@ -40,7 +39,11 @@ class RegisterScreen extends StatelessWidget {
               context: context,
               message: AppConstants.registerSuccess,
               posActionName: 'ok',
-              title: 'success');
+            title: 'success',
+          );
+          SharedPreferenceUtils.saveData(
+              key: 'token', value: state.registerResponseEntity.token);
+          Navigator.pushReplacementNamed(context, Routes.mainRoute);
         }
       },
       child: Scaffold(
@@ -66,7 +69,7 @@ class RegisterScreen extends StatelessWidget {
                     hint: AppConstants.hintRegisterName,
                     textInputType: TextInputType.name,
                     validation: AppValidators.validateFullName,
-                    controller: registerScreenCubit.nameController,
+                    controller: RegisterScreenCubit.get(context).nameController,
                   ),
                   SizedBox(
                     height: AppSize.s18.h,
@@ -77,7 +80,8 @@ class RegisterScreen extends StatelessWidget {
                       backgroundColor: ColorManager.white,
                       validation: AppValidators.validatePhoneNumber,
                       textInputType: TextInputType.phone,
-                      controller: registerScreenCubit.phoneController),
+                      controller:
+                          RegisterScreenCubit.get(context).phoneController),
                   SizedBox(
                     height: AppSize.s18.h,
                   ),
@@ -87,7 +91,8 @@ class RegisterScreen extends StatelessWidget {
                       backgroundColor: ColorManager.white,
                       validation: AppValidators.validateEmail,
                       textInputType: TextInputType.emailAddress,
-                      controller: registerScreenCubit.emailController),
+                      controller:
+                          RegisterScreenCubit.get(context).emailController),
                   SizedBox(
                     height: AppSize.s18.h,
                   ),
@@ -96,7 +101,8 @@ class RegisterScreen extends StatelessWidget {
                     hint: AppConstants.hintRegisterPassword,
                     backgroundColor: ColorManager.white,
                     validation: AppValidators.validatePassword,
-                    controller: registerScreenCubit.passwordController,
+                    controller:
+                        RegisterScreenCubit.get(context).passwordController,
                     isObscured: true,
                     textInputType: TextInputType.text,
                   ),
@@ -108,8 +114,12 @@ class RegisterScreen extends StatelessWidget {
                     hint: AppConstants.hintRegisterConfirmPassword,
                     backgroundColor: ColorManager.white,
                     validation: (val) => AppValidators.validateConfirmPassword(
-                        val, registerScreenCubit.passwordController.text),
-                    controller: registerScreenCubit.confirmPasswordController,
+                        val,
+                        RegisterScreenCubit.get(context)
+                            .passwordController
+                            .text),
+                    controller: RegisterScreenCubit.get(context)
+                        .confirmPasswordController,
                     isObscured: true,
                     textInputType: TextInputType.text,
                   ),
@@ -126,8 +136,7 @@ class RegisterScreen extends StatelessWidget {
                         textStyle: getBoldStyle(
                             color: ColorManager.white, fontSize: AppSize.s20),
                         onTap: () {
-                          registerScreenCubit.register();
-                          // Navigator.pushNamed(context, Routes.mainRoute);
+                          RegisterScreenCubit.get(context).register();
                         },
                       ),
                     ),

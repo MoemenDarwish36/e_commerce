@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/core/resources/constant_manager.dart';
 import 'package:e_commerce_app/core/widget/custom_elevated_button.dart';
 import 'package:e_commerce_app/core/widget/main_text_field.dart';
+import 'package:e_commerce_app/core/widget/shared_preference_utils.dart';
 import 'package:e_commerce_app/di/di.dart';
 import 'package:e_commerce_app/features/auth_presentation_screen/login/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
@@ -37,10 +38,14 @@ class LoginScreen extends StatelessWidget {
         } else if (state is LoginSuccessState) {
           DialogUtils.hideLoading(context);
           DialogUtils.showMessage(
-              context: context,
-              message: AppConstants.registerSuccess,
-              posActionName: 'ok',
-              title: 'success');
+            context: context,
+            message: AppConstants.registerSuccess,
+            posActionName: 'ok',
+            title: 'success',
+          );
+          SharedPreferenceUtils.saveData(
+              key: 'token', value: state.loginResponseEntity.token);
+          Navigator.pushReplacementNamed(context, Routes.mainRoute);
         }
       },
       child: Scaffold(
@@ -93,22 +98,6 @@ class LoginScreen extends StatelessWidget {
                   textInputType: TextInputType.text,
                 ),
                 SizedBox(
-                  height: AppSize.s8.h,
-                ),
-                Row(
-                  children: [
-                    const Spacer(),
-                    InkWell(
-                      onTap: () {},
-                      child: Text(
-                        AppConstants.forgetPassword,
-                        style: getMediumStyle(color: ColorManager.black)
-                            .copyWith(fontSize: FontSize.s18.sp),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
                   height: AppSize.s40.h,
                 ),
                 Center(
@@ -120,7 +109,6 @@ class LoginScreen extends StatelessWidget {
                         color: ColorManager.white, fontSize: AppSize.s18),
                     onTap: () {
                       loginScreenCubit.login();
-                      Navigator.pushNamed(context, Routes.mainRoute);
                     },
                   ),
                 ),

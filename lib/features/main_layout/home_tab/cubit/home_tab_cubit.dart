@@ -35,10 +35,8 @@ class HomeTabCubit extends Cubit<HomeTabStates> {
         (error) =>
             Left(emit(HomeCategoriesErrorState(categoryFailures: error))),
         (response) {
-      // if(brandsList != null) {
       categoriesList = response.data!;
       Right(emit(HomeCategoriesSuccessState(categoryResponseEntity: response)));
-      // }
     });
   }
 
@@ -48,10 +46,8 @@ class HomeTabCubit extends Cubit<HomeTabStates> {
     either
         .fold((error) => Left(emit(HomeBrandsErrorState(brandFailures: error))),
             (response) {
-      // if(categoriesList != null) {
       brandsList = response.data!;
       Right(emit(HomeBrandsSuccessState(brandResponseEntity: response)));
-      // }
     });
   }
 }

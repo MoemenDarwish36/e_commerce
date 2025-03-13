@@ -11,15 +11,29 @@ class ApiManager {
   }
 
   Future<Response> getData(String api,
-      {Map<String, dynamic>? queryParameters}) {
+      {Map<String, dynamic>? queryParameters, Map<String, dynamic>? headers}) {
     return dio.get(AppConstants.baseUrl + api,
         queryParameters: queryParameters,
-        options: Options(validateStatus: (status) => true));
+        options: Options(headers: headers, validateStatus: (status) => true));
   }
 
   Future<Response> postData(String api,
       {Map<String, dynamic>? body, Map<String, dynamic>? headers}) {
     return dio.post(AppConstants.baseUrl + api,
+        data: body,
+        options: Options(headers: headers, validateStatus: (status) => true));
+  }
+
+  Future<Response> deleteData(String api,
+      {Map<String, dynamic>? body, Map<String, dynamic>? headers}) {
+    return dio.delete(AppConstants.baseUrl + api,
+        data: body,
+        options: Options(headers: headers, validateStatus: (status) => true));
+  }
+
+  Future<Response> updateData(String api,
+      {Map<String, dynamic>? body, Map<String, dynamic>? headers}) {
+    return dio.put(AppConstants.baseUrl + api,
         data: body,
         options: Options(headers: headers, validateStatus: (status) => true));
   }

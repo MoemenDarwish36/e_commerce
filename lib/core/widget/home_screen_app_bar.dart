@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../resources/assets_manager.dart';
 import '../resources/color_manager.dart';
@@ -21,13 +20,6 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       surfaceTintColor: Colors.white,
       automaticallyImplyLeading: automaticallyImplyLeading ?? false,
-      title: SvgPicture.asset(
-        SvgAssets.routeLogo,
-        height: 25.h,
-        width: 25.w,
-        colorFilter:
-            ColorFilter.mode(ColorManager.primaryDark, BlendMode.srcIn),
-      ),
       bottom: PreferredSize(
           preferredSize: const Size(AppSize.s100, AppSize.s60),
           child: Padding(
@@ -83,7 +75,6 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
               ],
             ),
           )),
-      // leading: const SizedBox.shrink(),
     );
   }
 

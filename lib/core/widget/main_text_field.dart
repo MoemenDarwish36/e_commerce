@@ -33,6 +33,7 @@ class BuildTextField extends StatefulWidget {
   });
 
   final TextEditingController? controller;
+
   final FocusNode? focusNode;
   final FocusNode? nextFocus;
   final bool isObscured;

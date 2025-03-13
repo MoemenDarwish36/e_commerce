@@ -7,11 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/resources/style_manager.dart';
+import '../../../../core/resources/values_manager.dart';
 import 'widgets/custom_brand_widget.dart';
 import 'widgets/custom_category_widget.dart';
 import 'widgets/custom_section_bar.dart';
 
 class HomeTab extends StatelessWidget {
+  const HomeTab({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeTabCubit, HomeTabStates>(
@@ -29,61 +33,84 @@ class HomeTab extends StatelessWidget {
         ..getAllCategories()
         ..getAllBrands(),
       builder: (context, state) {
-        return SingleChildScrollView(
-          child: Column(
-            children: [
-              AnnouncementWidget(),
-              SizedBox(height: 12.h),
-              CustomSectionBar(sectionName: 'Categories', function: () {}),
-              state is HomeCategoriesLoadingState
-                  ? Center(
-                      child: CircularProgressIndicator(
-                      color: ColorManager.primaryDark,
-                    ))
-                  : SizedBox(
-                      height: 270.h,
-                      child: GridView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return CustomCategoryWidget(
-                            categoryEntity:
-                                HomeTabCubit.get(context).categoriesList[index],
-                          );
-                        },
-                        itemCount:
-                            HomeTabCubit.get(context).categoriesList.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                        ),
-                      ),
+        return Padding(
+          padding: const EdgeInsets.all(AppPadding.p20),
+          child: SafeArea(
+            child: Scaffold(
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                title: Text(
+                  'Home Tab',
+                  style: getMediumStyle(color: ColorManager.primaryDark)
+                      .copyWith(fontSize: 20.sp),
+                ),
+              ),
+              body: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 30.h,
                     ),
-              SizedBox(height: 12.h),
-              CustomSectionBar(sectionName: 'Brands', function: () {}),
-              state is HomeBrandsLoadingState
-                  ? Center(
-                      child: CircularProgressIndicator(
-                      color: ColorManager.primaryDark,
-                    ))
-                  : SizedBox(
-                      height: 270.h,
-                      child: GridView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return CustomBrandWidget(
-                            brandEntity:
-                                HomeTabCubit.get(context).brandsList[index],
-                          );
-                        },
-                        itemCount: HomeTabCubit.get(context).brandsList.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                        ),
-                      ),
-                    ),
-              SizedBox(height: 12.h)
-            ],
+                    const AnnouncementWidget(),
+                    SizedBox(height: 12.h),
+                    CustomSectionBar(
+                        sectionName: 'Categories', function: () {}),
+                    state is HomeCategoriesLoadingState
+                        ? Center(
+                            child: CircularProgressIndicator(
+                            color: ColorManager.primaryDark,
+                          ))
+                        : SizedBox(
+                            height: 270.h,
+                            child: GridView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return CustomCategoryWidget(
+                                  categoryEntity: HomeTabCubit.get(context)
+                                      .categoriesList[index],
+                                );
+                              },
+                              itemCount: HomeTabCubit.get(context)
+                                  .categoriesList
+                                  .length,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                              ),
+                            ),
+                          ),
+                    SizedBox(height: 12.h),
+                    CustomSectionBar(sectionName: 'Brands', function: () {}),
+                    state is HomeBrandsLoadingState
+                        ? Center(
+                            child: CircularProgressIndicator(
+                            color: ColorManager.primaryDark,
+                          ))
+                        : SizedBox(
+                            height: 270.h,
+                            child: GridView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return CustomBrandWidget(
+                                  brandEntity: HomeTabCubit.get(context)
+                                      .brandsList[index],
+                                );
+                              },
+                              itemCount:
+                                  HomeTabCubit.get(context).brandsList.length,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                              ),
+                            ),
+                          ),
+                    SizedBox(height: 12.h)
+                  ],
+                ),
+              ),
+            ),
           ),
         );
       },

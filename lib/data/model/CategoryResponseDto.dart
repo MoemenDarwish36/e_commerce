@@ -2,7 +2,6 @@ import 'package:e_commerce_app/domain/entities/CategoryResponseEntity.dart';
 
 class CategoryResponseDto extends CategoryResponseEntity {
   String? statusMsg;
-
   String? message;
 
   CategoryResponseDto({
@@ -18,7 +17,7 @@ class CategoryResponseDto extends CategoryResponseEntity {
     statusMsg = json['statusMsg'];
     message = json['message'];
     metadata = json['metadata'] != null
-        ? MetadataDto.fromJson(json['metadata'])
+        ? MetadataCategoryDto.fromJson(json['metadata'])
         : null;
     if (json['data'] != null) {
       data = [];
@@ -28,28 +27,30 @@ class CategoryResponseDto extends CategoryResponseEntity {
     }
   }
 
-  @override
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['results'] = results;
     if (metadata != null) {
-      map['metadata'] = metadata?.toJson();
+      map['metadata'] = (metadata as MetadataCategoryDto).toJson();
     }
     if (data != null) {
-      map['data'] = data?.map((v) => v.toJson()).toList();
+      map['data'] = data?.map((v) => (v as CategoryDto).toJson()).toList();
     }
     return map;
   }
 }
 
 class CategoryDto extends CategoryEntity {
+  String? createdAt;
+  String? updatedAt;
+
   CategoryDto({
     super.id,
     super.name,
     super.slug,
     super.image,
-    super.createdAt,
-    super.updatedAt,
+    this.createdAt,
+    this.updatedAt,
   });
 
   CategoryDto.fromJson(dynamic json) {
@@ -61,7 +62,6 @@ class CategoryDto extends CategoryEntity {
     updatedAt = json['updatedAt'];
   }
 
-  @override
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['_id'] = id;
@@ -74,20 +74,19 @@ class CategoryDto extends CategoryEntity {
   }
 }
 
-class MetadataDto extends MetadataEntity {
-  MetadataDto({
+class MetadataCategoryDto extends MetadataCategoryEntity {
+  MetadataCategoryDto({
     super.currentPage,
     super.numberOfPages,
     super.limit,
   });
 
-  MetadataDto.fromJson(dynamic json) {
+  MetadataCategoryDto.fromJson(dynamic json) {
     currentPage = json['currentPage'];
     numberOfPages = json['numberOfPages'];
     limit = json['limit'];
   }
 
-  @override
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['currentPage'] = currentPage;
